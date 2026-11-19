@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | A1 Boys Hostel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .info-item {
+            margin-bottom: 20px;
+        }
+        .info-item h4 {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="A1 Boys Hostel Logo" style="height: 60px; margin: 0;">
+            </a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="facilities.html">Facilities</a></li>
+                <li><a href="food.html">Food</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="btn" style="padding: 5px 15px; margin-top: -5px;">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="padding: 40px 20px;">
+            <h1>Contact Us</h1>
+            <p>Get in touch with us for any queries.</p>
+        </section>
+
+        <section class="contact-container">
+            <div class="contact-info">
+                <h3>Our Contact Details</h3>
+                <p style="margin-bottom: 20px; color: #64748b;">We are always ready to help you. Reach out to us via phone or email.</p>
+                
+                <div class="info-item">
+                    <h4>Address</h4>
+                    <p>A1 Boys Hostel,<br>Beside G. Pulla Reddy Engineering College Main Gate.</p>
+                </div>
+                <div class="info-item">
+                    <h4>Phone</h4>
+                    <p style="margin-bottom: 5px;"><strong>A. Srinu:</strong> +91 63051 88982</p>
+                    <p><strong>M. Charansai:</strong> +91 63000 20173</p>
+                </div>
+                <div class="info-item">
+                    <h4>Email</h4>
+                    <p>info@a1boyshostel.com</p>
+                </div>
+
+                <div style="margin-top: 25px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                    <img src="images/office.jpg" alt="A1 Boys Hostel Office Reception Desk" style="width: 100%; height: 210px; object-fit: cover; display: block;">
+                    <div style="background-color: #141414; padding: 10px; text-align: center;">
+                        <small style="color: var(--accent-color); font-weight: bold; font-size: 0.9rem;">📍 Our Reception &amp; Office Desk</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                    <div class="form-group">
+                        <label for="c-name">Name</label>
+                        <input type="text" id="c-name" name="c-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-email">Email</label>
+                        <input type="email" id="c-email" name="c-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-message">Message</label>
+                        <textarea id="c-message" name="c-message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 A1 Boys Hostel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms | A1 Boys Hostel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .room-card-btn {
+            background-color: #1a1a1a;
+            border: 1px solid var(--border-color);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 120px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .room-card-btn:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-color);
+            background-color: #262626;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+        .room-card-btn:active {
+            transform: translateY(-1px);
+        }
+        .room-card-btn.dorm {
+            border: 2px solid var(--accent-color);
+        }
+        .room-card-btn.dorm:hover {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+        }
+        .room-tag {
+            color: var(--gray);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .room-num {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 800;
+        }
+        .room-beds {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .room-beds.green {
+            color: #4ade80;
+            font-weight: bold;
+        }
+        .click-hint {
+            font-size: 0.72rem;
+            color: #38bdf8;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        .room-card-btn.booked {
+            opacity: 0.65;
+            background-color: #141414;
+            border-color: #2b2b2b;
+        }
+        .room-card-btn.booked:hover {
+            transform: translateY(-2px);
+            border-color: #ef4444;
+            background-color: #1c1414;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+        }
+        .room-card-btn.available-room {
+            border: 2px solid #22c55e !important;
+            background: linear-gradient(145deg, #142817, #0e1c11) !important;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.3) !important;
+        }
+        .room-card-btn.available-room:hover {
+            transform: translateY(-5px);
+            border-color: #4ade80 !important;
+            background: linear-gradient(145deg, #1a361f, #122416) !important;
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.6) !important;
+        }
+        .status-badge {
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .status-badge.booked {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .status-badge.available {
+            background-color: rgba(34, 197, 94, 0.25);
+            color: #4ade80;
+            border: 1px solid #22c55e;
+            animation: pulseAvailable 2s infinite;
+        }
+        @keyframes pulseAvailable {
+            0%, 100% { box-shadow: 0 0 0 rgba(34, 197, 94, 0); }
+            50% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.7); }
+        }
+        .resident-room-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .resident-room-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .resident-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .resident-table th, .resident-table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #262626;
+            font-size: 0.95rem;
+        }
+        .resident-table th {
+            color: var(--gray);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .resident-table tr:hover {
+            background-color: #1a1a1a;
+        }
+        .badge-1st {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid #22c55e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .badge-2nd {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid #3b82f6;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .badge-3rd {
+            background-color: rgba(168, 85, 247, 0.15);
+            color: #c084fc;
+            border: 1px solid #a855f7;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .badge-final {
+            background-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid #f59e0b;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .badge-general {
+            background-color: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+            border: 1px solid #64748b;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="A1 Boys Hostel Logo" style="height: 60px; margin: 0;">
+            </a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="facilities.html">Facilities</a></li>
+                <li><a href="food.html">Food</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="btn" style="padding: 5px 15px; margin-top: -5px;">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="padding: 40px 20px;">
+            <h1>Our Rooms</h1>
+            <p>Comfortable and spacious living spaces.</p>
+        </section>
+
+        <section>
+            <div class="grid-container">
+                <div class="card">
+                    <h3>3 Sharing</h3>
+                    <p>Perfect balance of companionship and comfort. Includes three beds, study tables, and individual wardrobes.</p>
+                    <a href="booking.html?type=3-sharing" class="btn" style="margin-top: 15px; display: inline-block; width: 100%;">Book 3 Sharing</a>
+                </div>
+                <div class="card">
+                    <h3>4 Sharing</h3>
+                    <p>Economical and fun. Includes four beds and ample storage space, with enough room to move around.</p>
+                    <a href="booking.html?type=4-sharing" class="btn" style="margin-top: 15px; display: inline-block; width: 100%;">Book 4 Sharing</a>
+                </div>
+                <div class="card">
+                    <h3>8 Sharing (Dorm)</h3>
+                    <p>Ideal for large groups or students looking for the most budget-friendly option in a spacious dormitory layout.</p>
+                    <a href="booking.html?type=8-sharing" class="btn" style="margin-top: 15px; display: inline-block; width: 100%;">Book 8 Sharing</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Room Outside & Corridor Photos -->
+        <section style="margin-top: 50px;">
+            <h2 style="text-align: center; margin-bottom: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Outside Room Views &amp; Corridors</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 30px; font-size: 1rem;">
+                Spotless, well-ventilated corridors with sparkling granite flooring, natural sunlight, and 24/7 CCTV surveillance.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                <div style="background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <img src="images/corridor-1.jpg" alt="A1 Boys Hostel Well-Lit Corridor" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+                    <div style="padding: 16px; text-align: center;">
+                        <h4 style="color: var(--white); margin-bottom: 6px; font-size: 1.15rem;">Bright &amp; Clean Corridors</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin: 0;">Spacious hallways with granite flooring, ceiling lights, and ventilation windows on every floor.</p>
+                    </div>
+                </div>
+
+                <div style="background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    <img src="images/corridor-2.jpg" alt="A1 Boys Hostel Floor Lounge and CCTV" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+                    <div style="padding: 16px; text-align: center;">
+                        <h4 style="color: var(--white); margin-bottom: 6px; font-size: 1.15rem;">Floor Lounge &amp; Security</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; margin: 0;">Comfortable sofa lounge outside rooms, RO drinking water, and active 24/7 CCTV security cameras.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 50px;">
+            <h2 style="text-align: center; margin-bottom: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Room Directory &amp; Live Availability</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(34, 197, 94, 0.12)); border: 1px solid var(--border-color); padding: 18px 25px; border-radius: 8px; margin-bottom: 25px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px;">
+                <div>
+                    <h4 style="margin: 0 0 5px 0; color: #f87171; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+                        <span>🔥</span> Live Status: Almost All Beds Are Booked!
+                    </h4>
+                    <p style="margin: 0; color: var(--text-color); font-size: 0.95rem;">
+                        Only <strong>2 single beds</strong> currently available in the entire hostel: 
+                        <a href="booking.html?room=108" style="color: #4ade80; font-weight: bold; background: rgba(34, 197, 94, 0.15); padding: 2px 8px; border-radius: 4px; border: 1px solid #22c55e; text-decoration: none;">Room 108 (1 Bed Free)</a> &amp; 
+                        <a href="booking.html?room=201" style="color: #4ade80; font-weight: bold; background: rgba(34, 197, 94, 0.15); padding: 2px 8px; border-radius: 4px; border: 1px solid #22c55e; text-decoration: none;">Room 201 (1 Bed Free)</a>.
+                    </p>
+                </div>
+                <div style="display: flex; gap: 15px; font-size: 0.85rem; font-weight: bold;">
+                    <span style="color: #4ade80; display: flex; align-items: center; gap: 5px;">🟢 Available (1 Bed Left)</span>
+                    <span style="color: #f87171; display: flex; align-items: center; gap: 5px;">🔴 Fully Booked</span>
+                </div>
+            </div>
+            
+            <!-- 1st Floor -->
+            <div style="background-color: var(--card-bg); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">1st Floor</span>
+                    Rooms 101 - 110
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <a href="booking.html?room=101&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">101</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=102&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">102</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=103&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">103</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=104&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">104</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=105&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">105</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=106&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">106</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=107&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">107</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=108" class="room-card-btn available-room" title="1 Bed Free! Click to Book"><span class="room-tag">Room</span><span class="room-num" style="color: #4ade80;">108</span><span class="room-beds" style="color: #a7f3d0; font-weight: bold;">3 Beds (1 Free)</span><span class="status-badge available">🟢 1 Bed Free</span></a>
+                    <a href="booking.html?room=109&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">109</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=110&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">110</span><span class="room-beds">6 Beds (Dorm)</span><span class="status-badge booked">🔴 Booked</span></a>
+                </div>
+            </div>
+
+            <!-- 2nd Floor -->
+            <div style="background-color: var(--card-bg); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">2nd Floor</span>
+                    Rooms 201 - 210
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <a href="booking.html?room=201" class="room-card-btn available-room" title="1 Bed Free! Click to Book"><span class="room-tag">Room</span><span class="room-num" style="color: #4ade80;">201</span><span class="room-beds" style="color: #a7f3d0; font-weight: bold;">3 Beds (1 Free)</span><span class="status-badge available">🟢 1 Bed Free</span></a>
+                    <a href="booking.html?room=202&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">202</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=203&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">203</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=204&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">204</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=205&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">205</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=206&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">206</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=207&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">207</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=208&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">208</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=209&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">209</span><span class="room-beds">3 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=210&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">210</span><span class="room-beds">6 Beds (Dorm)</span><span class="status-badge booked">🔴 Booked</span></a>
+                </div>
+            </div>
+
+            <!-- 3rd Floor -->
+            <div style="background-color: var(--card-bg); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 20px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">3rd Floor</span>
+                    Rooms 301 - 303
+                </h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                    <a href="booking.html?room=301&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">301</span><span class="room-beds">4 Beds</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=302&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">302</span><span class="room-beds">8 Beds (Dorm)</span><span class="status-badge booked">🔴 Booked</span></a>
+                    <a href="booking.html?room=303&status=booked" class="room-card-btn booked" title="Fully Booked"><span class="room-tag">Room</span><span class="room-num" style="color: #94a3b8;">303</span><span class="room-beds">8 Beds (Dorm)</span><span class="status-badge booked">🔴 Booked</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resident Students Directory (October 2026) -->
+        <section style="margin-top: 60px;" id="resident-directory">
+            <h2 style="text-align: center; margin-bottom: 10px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">
+                Resident Students Directory (October 2026)
+            </h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 25px; font-size: 1rem;">
+                Room-by-room resident allocation with student names and academic year. <br>
+                <span style="display: inline-block; margin-top: 6px; background-color: rgba(34, 197, 94, 0.15); border: 1px solid #22c55e; color: #4ade80; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;">
+                    💡 "F" stands for First Year (1st Year)
+                </span>
+            </p>
+
+            <!-- Search Filter Bar -->
+            <div style="max-width: 650px; margin: 0 auto 35px auto;">
+                <input type="text" id="studentSearchInput" placeholder="🔍 Search student name, room (e.g. 105), or year (e.g. 1st Year)..." style="width: 100%; padding: 14px 20px; border-radius: 8px; border: 2px solid var(--border-color); background-color: #141414; color: var(--white); font-size: 1rem; outline: none; transition: border-color 0.3s ease;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='var(--border-color)'">
+            </div>
+
+            <!-- 1st Floor Residents -->
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">1st Floor</span>
+                    Rooms 101 - 110 Residents
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                    
+                    <!-- Room 101 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 101</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>D. Deveshwar</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>G. Tilak</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>T. Narayana</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 102 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 102</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>G. Nawat Shaik</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>S. Veerendra Gowtham</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>H. Mohammed Ali</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 103 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 103</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">4 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>K. Srikanth</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                                <tr><td>2</td><td><strong>G. Yunus</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                                <tr><td>3</td><td><strong>A. Rakesh Reddy</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                                <tr><td>4</td><td><strong>M. Tharun</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 104 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 104</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>A. Sai Kumar</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>R. Nanda Kishore</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>T. Abhisek</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 105 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 105</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>K. Nikhil</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>2</td><td><strong>P. Yaswanth</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>3</td><td><strong>B. Akhil</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 106 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 106</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>V. Sai Kumar Reddy</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>2</td><td><strong>P. Vijay</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>M. Yaswanth</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 107 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 107</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>V. Mohith</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>A. Vijay Prashanth Raju</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>V. Puneeth</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 108 -->
+                    <div class="resident-room-card" style="border: 2px solid #22c55e;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: #4ade80;">Room 108</span>
+                            <span style="font-size: 0.85rem; color: #4ade80; font-weight: bold;">🟢 1 Bed Available</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>K.S. Hussain Saheb</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>T. Hiaressh</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr style="background-color: rgba(34, 197, 94, 0.1);"><td>3</td><td colspan="2"><a href="booking.html?room=108" style="color: #4ade80; font-weight: bold; text-decoration: none;">🟢 [Vacant Bed] — Click to Book Now →</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 109 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 109</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>K. Sumanth</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>K. Sai Prasad</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>P. Sai Kumar Reddy</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 110 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 110 (Dorm)</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">6 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>K. Gnaneswara</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>G. Pavan Goud</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>H. Harsha Vardhan</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>4</td><td><strong>M.S.R. Mokshith</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>5</td><td><strong>C. Vasanth</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>6</td><td><strong>B. Gowtham Naik</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2nd Floor Residents -->
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">2nd Floor</span>
+                    Rooms 201 - 210 Residents
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                    
+                    <!-- Room 201 -->
+                    <div class="resident-room-card" style="border: 2px solid #22c55e;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: #4ade80;">Room 201</span>
+                            <span style="font-size: 0.85rem; color: #4ade80; font-weight: bold;">🟢 1 Bed Available</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr style="background-color: rgba(34, 197, 94, 0.1);"><td>1</td><td colspan="2"><a href="booking.html?room=201" style="color: #4ade80; font-weight: bold; text-decoration: none;">🟢 [Vacant Bed] — Click to Book Now →</a></td></tr>
+                                <tr><td>2</td><td><strong>A. Hari Prasad</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>A. Uday Kiran</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 202 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 202</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>P. Dheeraj</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>2</td><td><strong>Chethan Kumar</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>3</td><td><strong>N. Mahendra</strong></td><td><span class="badge-general">Student</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 203 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 203</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>L. Dhinakar Reddy</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>M. Vishnu Vardhan</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>M. Karthik Reddy</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 204 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 204</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>D. Weela Gowtham</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>M. Yashwanth Kumar</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>M. Charan</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 205 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 205</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>S. Anjum Basha</strong></td><td><span class="badge-3rd">3rd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>P. Harsha Varshna</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>3</td><td><strong>C. Likith</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 206 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 206</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>T. Sharath</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>2</td><td><strong>S. Shafi</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>3</td><td><strong>R. Bahsheer</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 207 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 207</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>N. Pavan Reddy</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>2</td><td><strong>B. Revanth Raghu</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                                <tr><td>3</td><td><strong>S. Yaswanth</strong></td><td><span class="badge-1st">1st Year (F)</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 208 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 208</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>B. Rakesh Reddy</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>B. Sumanth</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>I. Shashikanth</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 209 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 209</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">3 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>A. Nishanth</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                                <tr><td>2</td><td><strong>K. Mohan</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                                <tr><td>3</td><td><strong>S. Devendra</strong></td><td><span class="badge-final">Final Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 210 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 210 (Dorm)</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">6 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>P. Harshith</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>2</td><td><strong>S. Leela Manohar</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>V. Abdul Sameed</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>4</td><td><strong>D. Sayyad</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>5</td><td><strong>Harsha Vardhan</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>6</td><td><strong>B. Sai Charan</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3rd Floor Residents -->
+            <div style="margin-bottom: 40px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 20px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px;">
+                    <span style="background-color: var(--primary-color); color: var(--white); padding: 5px 15px; border-radius: 5px; font-size: 1rem; border: 1px solid var(--border-color);">3rd Floor</span>
+                    Rooms 301 - 303 Residents
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                    
+                    <!-- Room 301 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 301</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">4 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>M. Lohith Sriram</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>R. Subhash</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>R. Audi Keshava Reddy</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>4</td><td><strong>P. Hemanth</strong></td><td><span class="badge-general">Student</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 302 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 302 (Dorm)</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">9 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>U. Vikas</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>2</td><td><strong>M. Manohar</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>3</td><td><strong>B. Ajay</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>4</td><td><strong>T. Karthik</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>5</td><td><strong>K. Hemanth</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>6</td><td><strong>V. Sudhakar</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>7</td><td><strong>Y. Jayanth Reddy</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>8</td><td><strong>K. Subhash</strong></td><td><span class="badge-general">Student</span></td></tr>
+                                <tr><td>9</td><td><strong>Lava Kumar</strong></td><td><span class="badge-general">Student</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Room 303 -->
+                    <div class="resident-room-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+                            <span style="font-size: 1.25rem; font-weight: bold; color: var(--accent-color);">Room 303 (Dorm)</span>
+                            <span style="font-size: 0.85rem; color: var(--gray);">8 Beds (Full)</span>
+                        </div>
+                        <table class="resident-table">
+                            <thead><tr><th>#</th><th>Student Name</th><th>Academic Year</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><strong>T. Tejeshwar</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>2</td><td><strong>S. Mubarak</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>3</td><td><strong>Karthik</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>4</td><td><strong>M. Bhanu Varaprasad</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>5</td><td><strong>C. Gowtham</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>6</td><td><strong>N. Rateesh</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>7</td><td><strong>V. Lokesh</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                                <tr><td>8</td><td><strong>D. Manjunath</strong></td><td><span class="badge-2nd">2nd Year</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 A1 Boys Hostel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Live search filter for resident students directory
+        const searchInput = document.getElementById('studentSearchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                const cards = document.querySelectorAll('.resident-room-card');
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
+

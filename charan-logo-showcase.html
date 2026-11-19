@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHARAN Products Management System - Official Union Logo Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0F19;
+      --card-bg: #111827;
+      --card-border: #1F2937;
+      --primary: #4F46E5;
+      --accent: #06B6D4;
+      --text: #F3F4F6;
+      --text-muted: #9CA3AF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(79, 70, 229, 0.15);
+      border: 1px solid rgba(79, 70, 229, 0.4);
+      color: #818CF8;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #94A3B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-header {
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #1E293B;
+      color: #94A3B8;
+    }
+
+    .preview-box {
+      padding: 48px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      flex-grow: 1;
+    }
+
+    .preview-light {
+      background: #FFFFFF;
+    }
+
+    .preview-dark {
+      background: #090D16;
+    }
+
+    .preview-box img, .preview-box object {
+      max-width: 100%;
+      height: auto;
+      max-height: 90px;
+    }
+
+    .emblem-card .preview-box img, .emblem-card .preview-box object {
+      max-height: 130px;
+    }
+
+    .card-footer {
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #38BDF8;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      background: #1E293B;
+      color: #F8FAFC;
+      border: 1px solid #334155;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #334155;
+      border-color: #475569;
+    }
+
+    .btn-primary {
+      background: #4F46E5;
+      border-color: #6366F1;
+    }
+
+    .btn-primary:hover {
+      background: #4338CA;
+    }
+
+    /* Live Header Mockup */
+    .mockup-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+
+    .mockup-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .mockup-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .navbar-mockup {
+      border-radius: 12px;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .navbar-light {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+    }
+
+    .navbar-dark {
+      background: #111827;
+      border: 1px solid #1F2937;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748B;
+      transition: color 0.2s;
+    }
+
+    .navbar-dark .nav-links li a {
+      color: #94A3B8;
+    }
+
+    .nav-links li a:hover {
+      color: #4F46E5;
+    }
+
+    .navbar-dark .nav-links li a:hover {
+      color: #38BDF8;
+    }
+
+    .nav-cta {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #4F46E5, #06B6D4);
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    /* Code block */
+    .code-box {
+      background: #030712;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #E2E8F0;
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    .code-box span.tag { color: #F43F5E; }
+    .code-box span.attr { color: #38BDF8; }
+    .code-box span.val { color: #A7F3D0; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">Enterprise Brand Assets</div>
+      <h1>CHARAN Products Management System</h1>
+      <p class="subtitle">Complete Union Logo identity pack designed for web applications, navigation headers, dashboards, and app icons.</p>
+    </header>
+
+    <div class="grid">
+      <!-- 1. Standard Horizontal Logo (Light Background) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Primary Horizontal Logo (Light Canvas)</span>
+          <span class="card-tag">SVG / Navbar</span>
+        </div>
+        <div class="preview-box preview-light">
+          <img src="charan-logo.svg" alt="CHARAN PMS Logo Light">
+        </div>
+        <div class="card-footer">
+          <span class="file-name">charan-logo.svg</span>
+          <a href="charan-logo.svg" download class="btn">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- 2. Standard Horizontal Logo (Dark Background) -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Primary Horizontal Logo (Dark Canvas)</span>
+          <span class="card-tag">SVG / Dark Mode</span>
+        </div>
+        <div class="preview-box preview-dark">
+          <img src="charan-logo-dark.svg" alt="CHARAN PMS Logo Dark">
+        </div>
+        <div class="card-footer">
+          <span class="file-name">charan-logo-dark.svg</span>
+          <a href="charan-logo-dark.svg" download class="btn">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- 3. Emblem Icon / Squircle -->
+      <div class="card emblem-card">
+        <div class="card-header">
+          <span class="card-title">Union Square Emblem</span>
+          <span class="card-tag">App Icon / Favicon</span>
+        </div>
+        <div class="preview-box preview-dark">
+          <img src="charan-emblem.svg" alt="CHARAN PMS Emblem">
+        </div>
+        <div class="card-footer">
+          <span class="file-name">charan-emblem.svg</span>
+          <a href="charan-emblem.svg" download class="btn">Download SVG</a>
+        </div>
+      </div>
+
+      <!-- 4. Design Concept & Philosophy -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Symbol Meaning & Union Concept</span>
+          <span class="card-tag">Brand Story</span>
+        </div>
+        <div style="padding: 24px; color: #CBD5E1; font-size: 14px;">
+          <p style="margin-bottom: 12px;"><strong style="color: #38BDF8;">⚡ Interlocking "C" Ribbon:</strong> Represents CHARAN and continuous operational cycles in supply chains.</p>
+          <p style="margin-bottom: 12px;"><strong style="color: #818CF8;">🔗 The Union Knot:</strong> Unifies inventory, analytics, vendor networks, and order workflows into one cohesive hub.</p>
+          <p style="margin-bottom: 12px;"><strong style="color: #34D399;">💎 Hexagonal Central Core:</strong> Symbolizes precision product structures, stability, and data integrity.</p>
+          <p><strong style="color: #F8FAFC;">🎨 Tech Palette:</strong> Indigo, Electric Cyan, and Emerald for trust, modern tech innovation, and growth.</p>
+        </div>
+        <div class="card-footer">
+          <span class="file-name">Scalable Vector Graphic (0 Loss)</span>
+          <span class="card-tag" style="background:#1E1B4B; color:#A5B4FC;">Vector Precision</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Website Navbar Integration Demo -->
+    <div class="mockup-section">
+      <div class="mockup-title">Live Website Integration Preview</div>
+      <div class="mockup-desc">Here is how the logo effortlessly integrates into actual light & dark navigation bars:</div>
+
+      <!-- Dark Navbar Demo -->
+      <nav class="navbar-mockup navbar-dark">
+        <div style="height: 38px;">
+          <img src="charan-logo-dark.svg" alt="Logo" style="height: 100%;">
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Analytics</a></li>
+        </ul>
+        <a href="#" class="nav-cta">+ Add Product</a>
+      </nav>
+
+      <!-- Light Navbar Demo -->
+      <nav class="navbar-mockup navbar-light">
+        <div style="height: 38px;">
+          <img src="charan-logo.svg" alt="Logo" style="height: 100%;">
+        </div>
+        <ul class="nav-links">
+          <li><a href="#" style="color:#0F172A;">Dashboard</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Inventory</a></li>
+          <li><a href="#">Analytics</a></li>
+        </ul>
+        <a href="#" class="nav-cta">CPMS Portal</a>
+      </nav>
+
+      <!-- Code Snippet -->
+      <div style="margin-top: 24px;">
+        <span style="font-size: 14px; font-weight: 600; color: #94A3B8;">How to embed in your HTML:</span>
+        <div class="code-box">
+          &lt;<span class="tag">a</span> <span class="attr">href</span>=<span class="val">"index.html"</span> <span class="attr">class</span>=<span class="val">"navbar-brand"</span>&gt;<br>
+          &nbsp;&nbsp;&lt;<span class="tag">img</span> <span class="attr">src</span>=<span class="val">"charan-logo.svg"</span> <span class="attr">alt</span>=<span class="val">"CHARAN Products Management System"</span> <span class="attr">height</span>=<span class="val">"45"</span>&gt;<br>
+          &lt;/<span class="tag">a</span>&gt;
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Rendered Concept Badges -->
+    <div class="mockup-section">
+      <div class="mockup-title">3D High-Resolution Rendered Graphics (AI Studio Edition)</div>
+      <div class="mockup-desc">Ultra-high resolution render variants for marketing assets, landing page hero graphics, and splash screens:</div>
+
+      <div class="grid" style="margin-bottom: 0;">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Interlocking Union Ribbon (Sapphire 3D)</span>
+            <span class="card-tag">Dark Emblem</span>
+          </div>
+          <div class="preview-box preview-dark" style="padding: 16px;">
+            <img src="images/cpms_corporate_logo_1792037731255.jpg" alt="CPMS 3D Ribbon Logo" style="border-radius: 12px; max-height: 240px; width: auto; object-fit: contain;">
+          </div>
+          <div class="card-footer">
+            <span class="file-name">images/cpms_corporate_logo...jpg</span>
+            <a href="images/cpms_corporate_logo_1792037731255.jpg" target="_blank" class="btn">View Full Size</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Isometric Hex Header (16:9 Banner)</span>
+            <span class="card-tag">Web Banner</span>
+          </div>
+          <div class="preview-box preview-dark" style="padding: 16px;">
+            <img src="images/cpms_horizontal_header_logo_1792037751614.jpg" alt="CPMS Horizontal Header" style="border-radius: 12px; max-height: 240px; width: auto; object-fit: contain;">
+          </div>
+          <div class="card-footer">
+            <span class="file-name">images/cpms_horizontal_header...jpg</span>
+            <a href="images/cpms_horizontal_header_logo_1792037751614.jpg" target="_blank" class="btn">View Full Size</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Clean Minimalist Union Rings</span>
+            <span class="card-tag">Light Mode 3D</span>
+          </div>
+          <div class="preview-box preview-light" style="padding: 16px;">
+            <img src="images/cpms_light_mode_logo_1792037769765.jpg" alt="CPMS Light Mode Logo" style="border-radius: 12px; max-height: 240px; width: auto; object-fit: contain;">
+          </div>
+          <div class="card-footer">
+            <span class="file-name">images/cpms_light_mode...jpg</span>
+            <a href="images/cpms_light_mode_logo_1792037769765.jpg" target="_blank" class="btn">View Full Size</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

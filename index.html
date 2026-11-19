@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Boys Hostel | Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logo.jpg" alt="A1 Boys Hostel Logo" style="height: 60px; margin: 0;">
+            </a>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="facilities.html">Facilities</a></li>
+                <li><a href="food.html">Food</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="booking.html" class="btn" style="padding: 5px 15px; margin-top: -5px;">Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <style>
+            .hero-split {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                padding: 60px 10%;
+                background-color: #000000;
+                min-height: 85vh;
+                margin-top: -40px;
+                gap: 50px;
+            }
+            .hero-content {
+                flex: 1;
+                min-width: 300px;
+                max-width: 600px;
+                text-align: left;
+            }
+            .hero-image-container {
+                flex: 1;
+                min-width: 300px;
+                max-width: 500px;
+                display: flex;
+                justify-content: center;
+            }
+            .blinking-building {
+                width: 100%;
+                height: auto;
+                max-height: 75vh;
+                object-fit: cover;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                animation: pulseImage 3s infinite alternate;
+            }
+            @keyframes pulseImage {
+                0% { opacity: 1; transform: scale(1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+                100% { opacity: 0.7; transform: scale(0.97); box-shadow: 0 10px 40px rgba(245, 158, 11, 0.4); }
+            }
+        </style>
+        <section class="hero-split">
+            <div class="hero-content">
+                <h1 style="font-size: 4rem; color: var(--white); margin-bottom: 20px; line-height: 1.2;">Welcome to <br><span style="color: var(--accent-color);">A1 Boys Hostel</span></h1>
+                <p style="font-size: 1.3rem; color: var(--gray); margin-bottom: 40px; line-height: 1.6;">Your second home. Premium facilities, hygienic food, and a perfect environment for your studies and personal growth.</p>
+                <a href="booking.html" class="btn" style="padding: 15px 35px; font-size: 1.2rem; box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);">Book Your Room Now</a>
+            </div>
+            <div class="hero-image-container">
+                <img src="images/home-bg.jpg" alt="A1 Boys Hostel Building" class="blinking-building">
+            </div>
+        </section>
+
+        <section>
+            <h2 style="text-align: center; margin-bottom: 20px;">Why Choose Us?</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Prime Location</h3>
+                    <p>Situated in the heart of the city, close to major colleges and transport hubs.</p>
+                </div>
+                <div class="card">
+                    <h3>24/7 Security</h3>
+                    <p>CCTV surveillance and round-the-clock security guards for your safety.</p>
+                </div>
+                <div class="card">
+                    <h3>Hygienic Food</h3>
+                    <p>Nutritious and delicious meals prepared in a clean kitchen daily.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 A1 Boys Hostel. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
+
